@@ -1,8 +1,11 @@
 import { cookies } from "next/headers";
 import Script from "next/script";
-import { AppSidebar } from "@/components/app-sidebar";
+import Link from "next/link";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { DataStreamProvider } from "@/components/data-stream-provider";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+// import { AppSidebar } from "@/components/app-sidebar";
+// import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import type { AppUser } from "@/lib/types";
 // import { auth } from "../(auth)/auth";
 
@@ -34,10 +37,30 @@ export default async function Layout({
         strategy="beforeInteractive"
       />
       <DataStreamProvider>
-        <SidebarProvider defaultOpen={!isCollapsed}>
-          {session.user.id ? <AppSidebar user={session.user} /> : null}
-          <SidebarInset>{children}</SidebarInset>
-        </SidebarProvider>
+        {/*
+          The SidebarProvider component was used to manage the state of the sidebar.
+          It has been commented out to remove the sidebar from the UI.
+        */}
+        {/* <SidebarProvider defaultOpen={!isCollapsed}> */}
+        {/*
+          The AppSidebar component displayed the chat history and navigation.
+          It's been commented out to create a more minimal interface.
+        */}
+        {/* {session.user.id ? <AppSidebar user={session.user} /> : null} */}
+        {/*
+          The SidebarInset component was used to create a layout with a sidebar.
+          It has been commented out to remove the sidebar.
+        */}
+        {/* <SidebarInset>{children}</SidebarInset> */}
+        {/* </SidebarProvider> */}
+        <div className="relative flex h-full w-full flex-col">
+          <Link href="/" className="fixed top-4 right-4 z-50">
+            <Button variant="outline" size="icon">
+              <Plus className="h-4 w-4" />
+            </Button>
+          </Link>
+          {children}
+        </div>
       </DataStreamProvider>
     </>
   );

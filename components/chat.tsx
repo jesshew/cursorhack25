@@ -131,20 +131,24 @@ export function Chat({
   const searchParams = useSearchParams();
   const query = searchParams.get("query");
 
-  const [hasAppendedQuery, setHasAppendedQuery] = useState(false);
+  // Use ref to prevent double submission in React Strict Mode
+  const hasAppendedQueryRef = useRef(false);
 
   useEffect(() => {
-    if (query && !hasAppendedQuery) {
+    // Only send message once, even in Strict Mode
+    if (query && !hasAppendedQueryRef.current) {
+      hasAppendedQueryRef.current = true;
+      
       sendMessage({
         role: "user" as const,
         parts: [{ type: "text", text: query }],
       });
       console.log("sending query from search params", query);
 
-      setHasAppendedQuery(true);
+      // Clean up URL after sending the message
       window.history.replaceState({}, "", `/chat/${id}`);
     }
-  }, [query, sendMessage, hasAppendedQuery, id]);
+  }, [query, sendMessage, id]);
 
   const { data: votes } = useSWR<Vote[]>(
     messages.length >= 2 ? `/api/vote?chatId=${id}` : null,
