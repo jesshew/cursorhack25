@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   Collapsible,
   CollapsibleContent,
@@ -62,10 +63,21 @@ const renderContent = (section: any) => {
 export function Recipe({ recipe }: { recipe: any }) {
   if (!recipe || !recipe.selected) return null;
 
-  const { title, summary, meta, content } = recipe.selected;
+  const { title, summary, meta, content, imageUrl } = recipe.selected;
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto overflow-hidden">
+      {imageUrl && (
+        <div className="relative w-full h-64">
+          <Image
+            src={imageUrl}
+            alt={title}
+            layout="fill"
+            objectFit="cover"
+            className="bg-muted"
+          />
+        </div>
+      )}
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>

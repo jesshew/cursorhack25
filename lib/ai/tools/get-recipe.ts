@@ -72,6 +72,7 @@ const recipeSchema = z.object({
     id: z.string(),
     title: z.string(),
     summary: z.string(),
+    imageUrl: z.string().optional(),
     meta: z.object({
       source_file: z.string(),
       avg_similarity: z.number(),
@@ -146,6 +147,32 @@ export const getRecipe = tool({
       });
 
       console.log("Structured recipe object from generateObject:", recipe);
+
+      // Generate an image for the recipe
+      try {
+        const imageResponse = await fetch("http://127.0.0.1:8000/images/generate", {
+          method: "POST",
+          headers: {
+            "accept": "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            prompt: `Create an image of LKY with ${recipe.selected.title};`,
+            style: "LKY cooking style",
+            size: "1024x1024",
+          }),
+        });
+
+        if (imageResponse.ok) {
+          const imageData = await imageResponse.json();
+          console.log("Image generation response:", imageData);
+          recipe.selected.imageUrl = imageData.image_url;
+        } else {
+          console.error("Image generation failed with status:", imageResponse.status);
+        }
+      } catch (imageError) {
+        console.error("An error occurred during image generation:", imageError);
+      }
 
       return recipe;
     } catch (error) {
