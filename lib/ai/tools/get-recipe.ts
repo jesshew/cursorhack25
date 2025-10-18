@@ -91,7 +91,7 @@ const recipeSchema = z.object({
 
 
 export const getRecipe = tool({
-  description: "Get a recipe for a food.",
+  description: "Get the instructions / recipe / learn how to make a food.",
   inputSchema: z.object({
     query: z
       .string()

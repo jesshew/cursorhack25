@@ -26,6 +26,7 @@ import { PreviewAttachment } from "./preview-attachment";
 import { Weather } from "./weather";
 import { Recipe } from "./recipe";
 import { Itinerary } from "./itinerary";
+import { StorybookTool } from "./storybook-tool";
 
 const PurePreviewMessage = ({
   chatId,
@@ -223,6 +224,27 @@ const PurePreviewMessage = ({
                       <ToolOutput
                         errorText={undefined}
                         output={<Itinerary itinerary={part.output} />}
+                      />
+                    )}
+                  </ToolContent>
+                </Tool>
+              );
+            }
+
+            if (type === "tool-getStorybook") {
+              const { toolCallId, state } = part;
+
+              return (
+                <Tool defaultOpen={true} key={toolCallId}>
+                  <ToolHeader state={state} type="tool-getStorybook" />
+                  <ToolContent>
+                    {state === "input-available" && (
+                      <ToolInput input={part.input} />
+                    )}
+                    {state === "output-available" && (
+                      <ToolOutput
+                        errorText={undefined}
+                        output={<StorybookTool storybook={part.output} />}
                       />
                     )}
                   </ToolContent>

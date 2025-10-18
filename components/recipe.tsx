@@ -22,6 +22,7 @@ import {
   Lightbulb,
   UtensilsCrossed,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 // Map section types to icons
 const iconMapping = {
@@ -66,52 +67,61 @@ export function Recipe({ recipe }: { recipe: any }) {
   const { title, summary, meta, content, imageUrl } = recipe.selected;
 
   return (
-    <Card className="w-full max-w-2xl mx-auto overflow-hidden">
-      {imageUrl && (
-        <div className="relative w-full h-64">
-          <Image
-            src={imageUrl}
-            alt={title}
-            layout="fill"
-            objectFit="cover"
-            className="bg-muted"
-          />
-        </div>
-      )}
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <div>
-            <CardTitle className="flex items-center gap-3">
-              <ChefHat className="h-6 w-6" />
-              {title}
-            </CardTitle>
-            <CardDescription className="mt-2">{summary}</CardDescription>
-          </div>
-          <Source href="#">
-            <SourceTrigger>{meta.source_file}</SourceTrigger>
-            <SourceContent
-              title={meta.source_file}
-              description={`Similarity: ${meta.avg_similarity.toFixed(4)}`}
+    <Card className="w-full max-w-6xl mx-auto overflow-hidden">
+      <div
+        className={cn(
+          "flex flex-col",
+          imageUrl && "md:flex-row md:gap-8"
+        )}
+      >
+        {imageUrl && (
+          <div className="relative w-full md:w-1/2 aspect-square">
+            <Image
+              src={imageUrl}
+              alt={title}
+              layout="fill"
+              objectFit="cover"
+              className="bg-muted"
             />
-          </Source>
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        {content.map((section: any, index: number) => (
-          <Collapsible key={index} defaultOpen={true}>
-            <CollapsibleTrigger className="group flex w-full items-center justify-between rounded-md border px-4 py-3 text-sm font-medium">
-              <div className="flex items-center gap-3">
-                {iconMapping[section.type as keyof typeof iconMapping] || <Info className="h-5 w-5" />}
-                {section.label}
+          </div>
+        )}
+        <div className={cn("w-full", imageUrl && "md:w-1/2")}>
+          <CardHeader>
+            <div className="flex justify-between items-start">
+              <div>
+                <CardTitle className="flex items-center gap-3">
+                  <ChefHat className="h-6 w-6" />
+                  {title}
+                </CardTitle>
+                <CardDescription className="mt-2">{summary}</CardDescription>
               </div>
-              <ChevronDown className="h-5 w-5 transition-transform group-data-[state=open]:rotate-180" />
-            </CollapsibleTrigger>
-            <CollapsibleContent className="prose prose-sm dark:prose-invert p-4">
-              {renderContent(section)}
-            </CollapsibleContent>
-          </Collapsible>
-        ))}
-      </CardContent>
+              <Source href="#">
+                <SourceTrigger>{meta.source_file}</SourceTrigger>
+                <SourceContent
+                  title={meta.source_file}
+                  description={`Similarity: ${meta.avg_similarity.toFixed(4)}`}
+                />
+              </Source>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {content.map((section: any, index: number) => (
+              <Collapsible key={index} defaultOpen={false}>
+                <CollapsibleTrigger className="group flex w-full items-center justify-between rounded-md border px-4 py-3 text-sm font-medium">
+                  <div className="flex items-center gap-3">
+                    {iconMapping[section.type as keyof typeof iconMapping] || <Info className="h-5 w-5" />}
+                    {section.label}
+                  </div>
+                  <ChevronDown className="h-5 w-5 transition-transform group-data-[state=open]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent className="prose prose-sm dark:prose-invert p-4">
+                  {renderContent(section)}
+                </CollapsibleContent>
+              </Collapsible>
+            ))}
+          </CardContent>
+        </div>
+      </div>
     </Card>
   );
 }

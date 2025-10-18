@@ -29,6 +29,7 @@ import { getRecipe } from "@/lib/ai/tools/get-recipe";
 import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
 import { updateDocument } from "@/lib/ai/tools/update-document";
 import { createItinerary } from "@/lib/ai/tools/create-itinerary";
+import { getStorybook } from "@/lib/ai/tools/get-storybook";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -219,11 +220,13 @@ export async function POST(request: Request) {
                   "requestSuggestions",
                   "createItinerary",
                   "getRecipe",
+                  "getStorybook",
                 ],
           experimental_transform: smoothStream({ chunking: "word" }),
           tools: {
             getWeather,
             getRecipe,
+            getStorybook,
             createDocument: createDocument({ session, dataStream }),
             updateDocument: updateDocument({ session, dataStream }),
             requestSuggestions: requestSuggestions({
