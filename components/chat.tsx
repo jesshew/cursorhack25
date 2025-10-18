@@ -79,7 +79,7 @@ export function Chat({
     regenerate,
     resumeStream,
   } = useChat<ChatMessage>({
-    id,
+    id: id,
     messages: initialMessages,
     experimental_throttle: 100,
     generateId: generateUUID,
@@ -90,7 +90,7 @@ export function Chat({
         console.log("prepareSendMessagesRequest", request);
         return {
           body: {
-            id: request.id,
+            id: id,
             message: request.messages.at(-1),
             selectedChatModel: currentModelIdRef.current,
             selectedVisibilityType: visibilityType,

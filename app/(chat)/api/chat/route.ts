@@ -89,13 +89,11 @@ export function getStreamContext() {
 }
 
 export async function POST(request: Request) {
-  console.log("POST /api/chat");
   let requestBody: PostRequestBody;
 
   try {
     const json = await request.json();
     requestBody = postRequestBodySchema.parse(json);
-    console.log({ requestBody });
   } catch (_) {
     return new ChatSDKError("bad_request:api").toResponse();
   }
@@ -162,7 +160,6 @@ export async function POST(request: Request) {
     const uiMessages = [...convertToUIMessages(messagesFromDb), message];
 
     const { longitude, latitude, city, country } = geolocation(request);
-    console.log({ longitude, latitude, city, country });
 
     const requestHints: RequestHints = {
       longitude,
@@ -204,7 +201,6 @@ export async function POST(request: Request) {
 
     const stream = createUIMessageStream({
       execute: ({ writer: dataStream }) => {
-        console.log("executing stream");
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
           system: systemPrompt({ selectedChatModel, requestHints }),
@@ -240,7 +236,6 @@ export async function POST(request: Request) {
             functionId: "stream-text",
           },
           onFinish: async ({ usage }) => {
-            console.log("onFinish callback");
             try {
               const providers = await getTokenlensCatalog();
               const modelId =
@@ -284,7 +279,6 @@ export async function POST(request: Request) {
       },
       generateId: generateUUID,
       onFinish: async ({ messages }) => {
-        console.log("stream finished");
         await saveMessages({
           messages: messages.map((currentMessage) => ({
             id: currentMessage.id,
