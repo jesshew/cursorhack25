@@ -19,11 +19,13 @@ export const login = async (
   _: LoginActionState,
   formData: FormData
 ): Promise<LoginActionState> => {
+  console.log("login action");
   try {
     const validatedData = authFormSchema.parse({
       email: formData.get("email"),
       password: formData.get("password"),
     });
+    console.log({ validatedData });
 
     await signIn("credentials", {
       email: validatedData.email,
@@ -33,6 +35,7 @@ export const login = async (
 
     return { status: "success" };
   } catch (error) {
+    console.error(error);
     if (error instanceof z.ZodError) {
       return { status: "invalid_data" };
     }
@@ -55,11 +58,13 @@ export const register = async (
   _: RegisterActionState,
   formData: FormData
 ): Promise<RegisterActionState> => {
+  console.log("register action");
   try {
     const validatedData = authFormSchema.parse({
       email: formData.get("email"),
       password: formData.get("password"),
     });
+    console.log({ validatedData });
 
     const [user] = await getUser(validatedData.email);
 
@@ -75,6 +80,7 @@ export const register = async (
 
     return { status: "success" };
   } catch (error) {
+    console.error(error);
     if (error instanceof z.ZodError) {
       return { status: "invalid_data" };
     }

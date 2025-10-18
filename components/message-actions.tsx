@@ -7,6 +7,7 @@ import type { Vote } from "@/lib/db/schema";
 import type { ChatMessage } from "@/lib/types";
 import { Action, Actions } from "./elements/actions";
 import { CopyIcon, PencilEditIcon, ThumbDownIcon, ThumbUpIcon } from "./icons";
+import { Volume2 } from "lucide-react";
 
 export function PureMessageActions({
   chatId,
@@ -44,6 +45,35 @@ export function PureMessageActions({
     toast.success("Copied to clipboard!");
   };
 
+  const handleSpeak = async () => {
+    if (!textFromParts) {
+      toast.error("There's no text to read!");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/tts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: textFromParts }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate audio.");
+      }
+
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      await audio.play();
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to play audio.");
+    }
+  };
+
   // User messages get edit (on hover) and copy actions
   if (message.role === "user") {
     return (
@@ -61,6 +91,9 @@ export function PureMessageActions({
           <Action onClick={handleCopy} tooltip="Copy">
             <CopyIcon />
           </Action>
+          <Action onClick={handleSpeak} tooltip="Speak">
+            <Volume2 className="size-4" />
+          </Action>
         </div>
       </Actions>
     );
@@ -70,6 +103,9 @@ export function PureMessageActions({
     <Actions className="-ml-0.5">
       <Action onClick={handleCopy} tooltip="Copy">
         <CopyIcon />
+      </Action>
+      <Action onClick={handleSpeak} tooltip="Speak">
+        <Volume2 className="size-4" />
       </Action>
 
       {/* <Action

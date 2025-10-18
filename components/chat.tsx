@@ -50,6 +50,7 @@ export function Chat({
   autoResume: boolean;
   initialLastContext?: AppUsage;
 }) {
+  console.log("Chat component rendered", { id, initialMessages, initialChatModel, initialVisibilityType, isReadonly, autoResume });
   const { visibilityType } = useChatVisibility({
     chatId: id,
     initialVisibilityType,
@@ -65,6 +66,7 @@ export function Chat({
   const currentModelIdRef = useRef(currentModelId);
 
   useEffect(() => {
+    console.log("currentModelId changed", currentModelId);
     currentModelIdRef.current = currentModelId;
   }, [currentModelId]);
 
@@ -85,6 +87,7 @@ export function Chat({
       api: "/api/chat",
       fetch: fetchWithErrorHandlers,
       prepareSendMessagesRequest(request) {
+        console.log("prepareSendMessagesRequest", request);
         return {
           body: {
             id: request.id,
@@ -97,15 +100,18 @@ export function Chat({
       },
     }),
     onData: (dataPart) => {
+      console.log("onData", dataPart);
       setDataStream((ds) => (ds ? [...ds, dataPart] : []));
       if (dataPart.type === "data-usage") {
         setUsage(dataPart.data);
       }
     },
     onFinish: () => {
+      console.log("onFinish");
       mutate(unstable_serialize(getChatHistoryPaginationKey));
     },
     onError: (error) => {
+      console.error("onError", error);
       if (error instanceof ChatSDKError) {
         // Check if it's a credit card error
         if (
@@ -133,6 +139,7 @@ export function Chat({
         role: "user" as const,
         parts: [{ type: "text", text: query }],
       });
+      console.log("sending query from search params", query);
 
       setHasAppendedQuery(true);
       window.history.replaceState({}, "", `/chat/${id}`);

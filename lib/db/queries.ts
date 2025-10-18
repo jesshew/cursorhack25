@@ -121,9 +121,7 @@ export async function createGuestUser() {
   }
 
   return data;
-}
-
-export async function saveChat({
+}export async function saveChat({
   id,
   userId,
   title,
@@ -134,34 +132,37 @@ export async function saveChat({
   title: string;
   visibility: VisibilityType;
 }) {
-  // try {
-  //   return await db.insert(chat).values({
-  //     id,
-  //     createdAt: new Date(),
-  //     userId,
-  //     title,
-  //     visibility,
-  //   });
-  // } catch (error) {
-  //   console.error("Database query failed in saveChat:", error);
-  //   throw new ChatSDKError("bad_request:database", "Failed to save chat");
-  // }
-  const { data, error } = await supabase.from("chat").insert([
-    {
-      id,
-      createdat: new Date().toISOString(),
-      userid: userId,
-      title,
-      visibility,
-    },
-  ]);
+  console.log("saveChat invoked with id:", id);
+  try {
+    //   return await db.insert(chat).values({
+    //     id,
+    //     createdAt: new Date(),
+    //     userId,
+    //     title,
+    //     visibility,
+    //   });
+    const { data, error } = await supabase
+      .from("chat")
+      .insert([
+        {
+          id,
+          createdat: new Date().toISOString(),
+          userid: userId,
+          title,
+          visibility,
+        },
+      ])
+      .select();
 
-  if (error) {
-    console.error("Supabase query failed in saveChat:", error);
+    if (error) {
+      console.error("Supabase query failed in saveChat:", error);
+      throw new ChatSDKError("bad_request:database", "Failed to save chat");
+    }
+    return data;
+  } catch (error) {
+    console.error("Database query failed in saveChat:", error);
     throw new ChatSDKError("bad_request:database", "Failed to save chat");
   }
-
-  return data;
 }
 
 export async function deleteChatById({ id }: { id: string }) {

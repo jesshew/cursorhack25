@@ -42,6 +42,7 @@ export const {
     Credentials({
       credentials: {},
       async authorize({ email, password }: any) {
+        console.log("authorize", { email });
         const users = await getUser(email);
 
         if (users.length === 0) {
@@ -50,6 +51,7 @@ export const {
         }
 
         const [user] = users;
+        console.log({ user });
 
         if (!user.password) {
           await compare(password, DUMMY_PASSWORD);
@@ -59,6 +61,7 @@ export const {
         const passwordsMatch = await compare(password, user.password);
 
         if (!passwordsMatch) {
+          console.log("passwords dont match");
           return null;
         }
 
@@ -69,6 +72,7 @@ export const {
       id: "guest",
       credentials: {},
       async authorize() {
+        console.log("guest authorize");
         const [guestUser] = await createGuestUser();
         return { ...guestUser, type: "guest" };
       },
@@ -76,6 +80,7 @@ export const {
   ],
   callbacks: {
     jwt({ token, user }) {
+      console.log("jwt callback", { token, user });
       if (user) {
         token.id = user.id as string;
         token.type = user.type;
@@ -84,6 +89,7 @@ export const {
       return token;
     },
     session({ session, token }) {
+      console.log("session callback", { session, token });
       if (session.user) {
         session.user.id = token.id;
         session.user.type = token.type;

@@ -1,1 +1,1 @@
-use context 7 to search the ai sdk documentation 
+use context 7 mcp server to search the ai sdk documentation 

@@ -32,5 +32,6 @@ export const myProvider = isTestEnvironment
         }),
         "title-model": gateway.languageModel("openai/gpt-4.1-mini"),
         "artifact-model": gateway.languageModel("openai/gpt-4.1-mini"),
+        "chat-model-json": gateway.languageModel("openai/gpt-4.1-mini"),
       },
     });
