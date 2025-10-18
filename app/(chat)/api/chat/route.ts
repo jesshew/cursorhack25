@@ -147,7 +147,7 @@ export async function POST(request: Request) {
 
       await saveChat({
         id,
-        userId: "00000000-0000-0000-0000-000000000000", // Hardcoded user ID for single-user mode
+        userId: "69abd0a9-2524-40c1-b5e0-1bef129fb901", // Hardcoded user ID for single-user mode
         title,
         visibility: selectedVisibilityType,
       });
@@ -187,7 +187,7 @@ export async function POST(request: Request) {
     // Replace with a more robust solution if multi-user functionality is ever restored.
     const session = {
       user: {
-        id: "00000000-0000-0000-0000-000000000000",
+        id: "69abd0a9-2524-40c1-b5e0-1bef129fb901",
         type: "guest" as const,
         name: "Guest",
         email: "guest@example.com",

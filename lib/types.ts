@@ -7,6 +7,8 @@ import type { requestSuggestions } from "./ai/tools/request-suggestions";
 import type { updateDocument } from "./ai/tools/update-document";
 import type { Suggestion } from "./db/schema";
 import type { AppUsage } from "./usage";
+import type { User as NextAuthUser } from "next-auth";
+import type { Message } from "ai";
 
 export type DataPart = { type: "append-message"; message: string };
 
@@ -55,4 +57,8 @@ export type Attachment = {
   name: string;
   url: string;
   contentType: string;
+};
+
+export type AppUser = NextAuthUser & {
+  id: string;
 };

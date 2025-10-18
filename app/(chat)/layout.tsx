@@ -3,6 +3,7 @@ import Script from "next/script";
 import { AppSidebar } from "@/components/app-sidebar";
 import { DataStreamProvider } from "@/components/data-stream-provider";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import type { AppUser } from "@/lib/types";
 // import { auth } from "../(auth)/auth";
 
 export const experimental_ppr = true;
@@ -14,7 +15,7 @@ export default async function Layout({
 }) {
   // const [session, cookieStore] = await Promise.all([auth(), cookies()]);
   // const cookieStore = cookies();
-  const session = {
+  const session: { user: AppUser } = {
     user: {
       id: '123',
       type: 'guest' as const,
@@ -34,7 +35,7 @@ export default async function Layout({
       />
       <DataStreamProvider>
         <SidebarProvider defaultOpen={!isCollapsed}>
-          <AppSidebar user={session?.user} />
+          {session.user.id ? <AppSidebar user={session.user} /> : null}
           <SidebarInset>{children}</SidebarInset>
         </SidebarProvider>
       </DataStreamProvider>

@@ -3,8 +3,7 @@
 import { ChevronUp } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import type { User } from "next-auth";
-import { type Session } from "next-auth";
+import type { AppUser } from "@/lib/types";
 import { useTheme } from "next-themes";
 import { useState } from "react";
 import {
@@ -24,20 +23,14 @@ import { LoaderIcon } from "./icons";
 import { toast } from "./toast";
 
 interface UserNavProps {
-  user?: Session["user"];
+  user: AppUser;
 }
 
 export function SidebarUserNav({ user }: UserNavProps) {
   const router = useRouter();
   // const { data, status } = useSession();
   const data = {
-    user: user ?? {
-      id: "69abd0a9-2524-40c1-b5e0-1bef129fb901",
-      type: "guest" as const,
-      name: "Guest",
-      email: "guest@example.com",
-      image: null,
-    },
+    user: user,
   };
   const status = "authenticated";
   const { setTheme, resolvedTheme } = useTheme();
