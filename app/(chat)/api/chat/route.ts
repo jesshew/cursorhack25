@@ -30,6 +30,7 @@ import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
 import { updateDocument } from "@/lib/ai/tools/update-document";
 import { createItinerary } from "@/lib/ai/tools/create-itinerary";
 import { getStorybook } from "@/lib/ai/tools/get-storybook";
+import { startPhoneCall } from '@/lib/ai/tools/start-phone-call';
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -217,6 +218,7 @@ export async function POST(request: Request) {
                   "createItinerary",
                   "getRecipe",
                   "getStorybook",
+                  "startPhoneCall",
                 ],
           experimental_transform: smoothStream({ chunking: "word" }),
           tools: {
@@ -230,6 +232,7 @@ export async function POST(request: Request) {
               dataStream,
             }),
             createItinerary,
+            startPhoneCall,
           },
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,

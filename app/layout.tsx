@@ -8,8 +8,8 @@ import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://chat.vercel.ai"),
-  title: "Next.js Chatbot Template",
-  description: "Next.js chatbot template using the AI SDK.",
+  title: "KUAN-versations",
+  description: "Kuanversations is an interactive archive of conversations with Lee Kuan Yew.",
 };
 
 export const viewport = {

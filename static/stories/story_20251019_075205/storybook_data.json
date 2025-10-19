@@ -1,0 +1,120 @@
+{
+  "id": "pork-bone-soup",
+  "title": "Pork Bone Soup",
+  "author": "AI Generated",
+  "description": "A story about Pork Bone Soup  A soup of pork and potatoes seasoned with garlic, salted soy beans and ginger  This is a basic soup which is relatively simple to prepare. The ingredients are easy to obtain and the preparation time is  relatively quick. The blue and white porcelain used to present this and other dishes (eg. Egg Foo Yong, Pork Chops and  Hokkien Mee Soup) in this cookbook, was often used by my grandmother. It is a unique dining set with pieces suited  for both Asian and Western dishes.  INGREDIENTS  300 g pork ribs  300 g potatoes  4 cloves garlic (bawang putih)  2 tbsp salted soy beans (taucheo)  3 tbsp oil  6 slices ginger (halia)  800 ml water  salt, to taste  a dash of dark soy sauce  Tip:  For a really tasty soup, simmer for  1 hr or more over a low-medium  heat, adding the potatoes only in the  last 20 min of cooking time.  PREPARATION  1 Rinse then chop the pork ribs into medium-sized pieces.  2 Peel then cut the potatoes into cubes.  3 Peel then finely mince the garlic.  4 If whole salted soy beans are used, pound the beans.  METHOD  1 Heat a wok over a high flame until it smokes. Add the oil.  2 Lower the flame, then add the garlic and ginger. Stir-fry until light golden brown.  3 Add the salted soy beans, then sprinkle in some water to prevent it from burning.  4 Add the pork ribs and stir-fry. Sprinkle in more water.  5 Add the potatoes and stir-fry for 1 min.  6 Add the remaining water then bring to the boil. Simmer for 30 min, preferably more.  7 Add the salt and a dash of dark soy sauce to taste.",
+  "spreads": [
+    {
+      "id": "spread-1",
+      "spreadNumber": 1,
+      "leftPage": {
+        "type": "photo",
+        "imageSrc": "/static/page1.jpg",
+        "imageAlt": "Our protagonist, a bright-eyed young girl with curly brown hair and a yellow sundress, stands in a traditional kitchen surrounded by wooden utensils and blue and white porcelain, with a warm smile as she holds a cookbook. The kitchen is filled with natural light and the atmosphere is cozy. The girl's eyes sparkle with excitement as she begins to read the recipe for Pork Bone Soup.",
+        "pageNumber": 1
+      },
+      "rightPage": {
+        "type": "text",
+        "text": "Chop the pork.\nAdd the potatoes.",
+        "pageNumber": 2
+      }
+    },
+    {
+      "id": "spread-2",
+      "spreadNumber": 2,
+      "leftPage": {
+        "type": "photo",
+        "imageSrc": "/static/page3.jpg",
+        "imageAlt": "Our protagonist, still wearing her yellow sundress and with her curly brown hair tied back, is now stir-frying the garlic and ginger in a wok over a high flame, the sizzling sounds and aromas filling the air. The kitchen is warm and inviting, with a large window in the background letting in plenty of natural light. The girl's face is intent as she stirs the ingredients, her eyes shining with enthusiasm.",
+        "pageNumber": 3
+      },
+      "rightPage": {
+        "type": "text",
+        "text": "Add the pork.\nSimmer the soup.",
+        "pageNumber": 4
+      }
+    }
+  ],
+  "pages": [
+    {
+      "id": "cover",
+      "pageNumber": 0,
+      "layout": "cover",
+      "visual": {
+        "type": "image",
+        "src": "/static/cover.jpg",
+        "alt": "Pork Bone Soup - Cover illustration for 'Pork Bone Soup': Pork Bone Soup  A soup of pork and potatoes seasoned with garlic, salted soy beans and ginger  This is a basic soup which is relatively simple to prepare. The ingredients are easy to obtain and the preparation time is  relatively quick. The blue and white porcelain used to present this and other dishes (eg. Egg Foo Yong, Pork Chops and  Hokkien Mee Soup) in this cookbook, was often used by my grandmother. It is a unique dining set with pieces suited  for both Asian and Western dishes.  INGREDIENTS  300 g pork ribs  300 g potatoes  4 cloves garlic (bawang putih)  2 tbsp salted soy beans (taucheo)  3 tbsp oil  6 slices ginger (halia)  800 ml water  salt, to taste  a dash of dark soy sauce  Tip:  For a really tasty soup, simmer for  1 hr or more over a low-medium  heat, adding the potatoes only in the  last 20 min of cooking time.  PREPARATION  1 Rinse then chop the pork ribs into medium-sized pieces.  2 Peel then cut the potatoes into cubes.  3 Peel then finely mince the garlic.  4 If whole salted soy beans are used, pound the beans.  METHOD  1 Heat a wok over a high flame until it smokes. Add the oil.  2 Lower the flame, then add the garlic and ginger. Stir-fry until light golden brown.  3 Add the salted soy beans, then sprinkle in some water to prevent it from burning.  4 Add the pork ribs and stir-fry. Sprinkle in more water.  5 Add the potatoes and stir-fry for 1 min.  6 Add the remaining water then bring to the boil. Simmer for 30 min, preferably more.  7 Add the salt and a dash of dark soy sauce to taste.. A beautiful, inviting cover that captures the essence of the story. Show the main character prominently with consistent appearance and distinctive features."
+      }
+    },
+    {
+      "id": "page-1",
+      "pageNumber": 1,
+      "layout": "spread-left",
+      "visual": {
+        "type": "image",
+        "src": "/static/page1.jpg",
+        "alt": "Our protagonist, a bright-eyed young girl with curly brown hair and a yellow sundress, stands in a traditional kitchen surrounded by wooden utensils and blue and white porcelain, with a warm smile as she holds a cookbook. The kitchen is filled with natural light and the atmosphere is cozy. The girl's eyes sparkle with excitement as she begins to read the recipe for Pork Bone Soup."
+      },
+      "text": {
+        "content": "Let's cook.\nDelicious soup.",
+        "language": "en"
+      }
+    },
+    {
+      "id": "page-2",
+      "pageNumber": 2,
+      "layout": "spread-right",
+      "visual": {
+        "type": "image",
+        "src": "/static/page2.jpg",
+        "alt": "The young girl with curly brown hair and a yellow sundress is now chopping pork ribs into medium-sized pieces on a wooden cutting board, her hands moving deftly as she concentrates on the task. The kitchen counter is filled with ingredients, including potatoes, garlic, and ginger, and the atmosphere is one of focused preparation. A blue and white porcelain bowl sits in the background, waiting to be filled with the finished soup."
+      },
+      "text": {
+        "content": "Chop the pork.\nAdd the potatoes.",
+        "language": "en"
+      }
+    },
+    {
+      "id": "page-3",
+      "pageNumber": 3,
+      "layout": "spread-left",
+      "visual": {
+        "type": "image",
+        "src": "/static/page3.jpg",
+        "alt": "Our protagonist, still wearing her yellow sundress and with her curly brown hair tied back, is now stir-frying the garlic and ginger in a wok over a high flame, the sizzling sounds and aromas filling the air. The kitchen is warm and inviting, with a large window in the background letting in plenty of natural light. The girl's face is intent as she stirs the ingredients, her eyes shining with enthusiasm."
+      },
+      "text": {
+        "content": "Stir-fry the garlic.\nAdd the ginger.",
+        "language": "en"
+      }
+    },
+    {
+      "id": "page-4",
+      "pageNumber": 4,
+      "layout": "spread-right",
+      "visual": {
+        "type": "image",
+        "src": "/static/page4.jpg",
+        "alt": "The young girl with curly brown hair and a yellow sundress is now adding the pork ribs and salted soy beans to the wok, stirring everything together with a wooden spoon. The kitchen is filled with the savory aromas of the cooking soup, and the atmosphere is one of anticipation. A blue and white porcelain spoon rest sits on the counter, waiting to be used."
+      },
+      "text": {
+        "content": "Add the pork.\nSimmer the soup.",
+        "language": "en"
+      }
+    },
+    {
+      "id": "page-5",
+      "pageNumber": 5,
+      "layout": "spread-left",
+      "visual": {
+        "type": "image",
+        "src": "/static/page5.jpg",
+        "alt": "Our protagonist, still wearing her yellow sundress and with her curly brown hair tied back, is now ladling the finished Pork Bone Soup into a beautiful blue and white porcelain bowl, a look of satisfaction on her face. The kitchen is warm and cozy, with a large window in the background letting in plenty of natural light. The girl's eyes sparkle with pride as she presents the finished dish, surrounded by the ingredients and utensils used in its preparation."
+      },
+      "text": {
+        "content": "Soup is ready.\nEnjoy your meal.",
+        "language": "en"
+      }
+    }
+  ]
+}

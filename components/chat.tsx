@@ -2,7 +2,7 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import useSWR, { useSWRConfig } from "swr";
 import { unstable_serialize } from "swr/infinite";
@@ -20,7 +20,7 @@ import {
 import { useArtifactSelector } from "@/hooks/use-artifact";
 import { useAutoResume } from "@/hooks/use-auto-resume";
 import { useChatVisibility } from "@/hooks/use-chat-visibility";
-import type { Vote } from "@/lib/db/schema";
+import type { vote as Vote } from "@/lib/db/schema";
 import { ChatSDKError } from "@/lib/errors";
 import type { Attachment, ChatMessage } from "@/lib/types";
 import type { AppUsage } from "@/lib/usage";
@@ -58,6 +58,7 @@ export function Chat({
 
   const { mutate } = useSWRConfig();
   const { setDataStream } = useDataStream();
+  const router = useRouter();
 
   const [input, setInput] = useState<string>("");
   const [usage, setUsage] = useState<AppUsage | undefined>(initialLastContext);
@@ -106,8 +107,20 @@ export function Chat({
         setUsage(dataPart.data);
       }
     },
-    onFinish: () => {
-      console.log("onFinish");
+    onFinish: (message) => {
+      console.log("onFinish", message);
+
+      if (message.toolInvocations) {
+        for (const toolInvocation of message.toolInvocations) {
+          if (toolInvocation.toolName === 'startPhoneCall') {
+            const result = toolInvocation.result as { redirectUrl?: string };
+            if (result.redirectUrl) {
+              router.push(result.redirectUrl);
+            }
+          }
+        }
+      }
+
       mutate(unstable_serialize(getChatHistoryPaginationKey));
     },
     onError: (error) => {
@@ -167,44 +180,49 @@ export function Chat({
 
   return (
     <>
-      <div className="overscroll-behavior-contain flex h-dvh min-w-0 touch-pan-y flex-col bg-background">
-        <ChatHeader
-          chatId={id}
-          isReadonly={isReadonly}
-          selectedVisibilityType={initialVisibilityType}
-        />
+      {/* Chat container - left-aligned with max width, transparent background */}
+      <div className="overscroll-behavior-contain flex h-dvh min-w-0 touch-pan-y flex-col bg-transparent">
+        {/* Content wrapper - left-aligned with constrained width */}
+        <div className="flex h-full w-full max-w-7xl flex-col px-6 sm:px-12 lg:px-20">
+          <ChatHeader
+            chatId={id}
+            isReadonly={isReadonly}
+            selectedVisibilityType={initialVisibilityType}
+          />
 
-        <Messages
-          chatId={id}
-          isArtifactVisible={isArtifactVisible}
-          isReadonly={isReadonly}
-          messages={messages}
-          regenerate={regenerate}
-          selectedModelId={initialChatModel}
-          setMessages={setMessages}
-          status={status}
-          votes={votes}
-        />
+          <Messages
+            chatId={id}
+            isArtifactVisible={isArtifactVisible}
+            isReadonly={isReadonly}
+            messages={messages}
+            regenerate={regenerate}
+            selectedModelId={initialChatModel}
+            setMessages={setMessages}
+            status={status}
+            votes={votes}
+          />
 
-        <div className="sticky bottom-0 z-1 mx-auto flex w-full max-w-4xl gap-2 border-t-0 bg-background px-2 pb-3 md:px-4 md:pb-4">
-          {!isReadonly && (
-            <MultimodalInput
-              attachments={attachments}
-              chatId={id}
-              input={input}
-              messages={messages}
-              onModelChange={setCurrentModelId}
-              selectedModelId={currentModelId}
-              selectedVisibilityType={visibilityType}
-              sendMessage={sendMessage}
-              setAttachments={setAttachments}
-              setInput={setInput}
-              setMessages={setMessages}
-              status={status}
-              stop={stop}
-              usage={usage}
-            />
-          )}
+          {/* Input area - left-aligned with messages (60% screen width) */}
+          <div className="sticky bottom-0 z-1 flex w-full max-w-5xl gap-2 border-t-0 bg-transparent pb-3 md:pb-4">
+            {!isReadonly && (
+              <MultimodalInput
+                attachments={attachments}
+                chatId={id}
+                input={input}
+                messages={messages}
+                onModelChange={setCurrentModelId}
+                selectedModelId={currentModelId}
+                selectedVisibilityType={visibilityType}
+                sendMessage={sendMessage}
+                setAttachments={setAttachments}
+                setInput={setInput}
+                setMessages={setMessages}
+                status={status}
+                stop={stop}
+                usage={usage}
+              />
+            )}
+          </div>
         </div>
       </div>
 

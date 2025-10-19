@@ -53,13 +53,34 @@ export default async function Layout({
         */}
         {/* <SidebarInset>{children}</SidebarInset> */}
         {/* </SidebarProvider> */}
-        <div className="relative flex h-full w-full flex-col">
+        
+        {/* Main chat container with background image */}
+        <div className="relative flex h-full w-full flex-col overflow-hidden">
+          {/* Background Image with horizontal shift for chat route */}
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: "url(/static/landing_page.png)",
+              backgroundSize: "cover",
+              backgroundPosition: "right -100px center", // Shifted to show more of the image
+              backgroundRepeat: "no-repeat",
+            }}
+          >
+            {/* White translucent overlay for readability */}
+            <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
+          </div>
+
+          {/* New chat button - fixed position */}
           <Link href="/" className="fixed top-4 right-4 z-50">
             <Button variant="outline" size="icon">
               <Plus className="h-4 w-4" />
             </Button>
           </Link>
-          {children}
+
+          {/* Content wrapper with relative positioning */}
+          <div className="relative z-10 flex h-full w-full flex-col">
+            {children}
+          </div>
         </div>
       </DataStreamProvider>
     </>
